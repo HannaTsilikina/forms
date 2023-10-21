@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>Форма отправки данных</h1>
+    <div class="container">
+        <form action="" class="form" novalidate onchange="validateErr()">
+            <div class="div-container"> 
+                <input type="text" placeholder="Введите имя" required minlength="2"
+                    maxlength="20">
+            </div>
+            <div class="div-container"> 
+                <input type="email" placeholder="Введите email" required> 
+            </div>
+            <div class="div-container">
+                <input type="number" placeholder="Введите возраст" required>
+            </div>
+            <div class="radio-div">
+                <span>Выберите пол</span>
+                <div class="radio-checkboxes">
+                    <input type="radio" class="radio" id="man" name="sex"> <label for="man">Мужчина</label>
+                    <input type="radio" class="radio" id="woman" name="sex"> <label for="woman">Женщина</label>
+                </div>
+            </div>
+            <div class="profession">
+                <span>Выберите Вашу профессию</span>
+                <select name="professions" id="prof"  >
+                    <option selected disabled>Профессия</option>
+                    <option value="doctor"> Врач </option>
+                    <option value="programmer">Программист</option>
+                    <option value="teacher"> Учитель </option>
+                    <option value="designer"> Дизайнер </option>
+                    <option value="engineer">Инженер </option>
+                    <option value="seller"> Продавец </option>
+                    <option value="others"> Другое </option>
+                </select>
+            </div>
+
+            <div class="div-container">
+                <input type="password" placeholder="Введите пароль" name="password" id="password-input" required
+                    minlength="8" >
+            </div>
+            <div class="check-agreed">
+                <input type="checkbox" name="agree" id="agree-input" required> Я согласен с обработкой данных
+            </div>
+            <button type="submit" class="button">Отправить</button>
+        </form>
+        <div class="error">
+            <span class="errorsInfo">
+
+            </span>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
