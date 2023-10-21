@@ -1,4 +1,5 @@
 let errors = [];
+const REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/;
 
 function pasteError(input) {
    let errorMessage = document.createElement('span');
@@ -13,10 +14,20 @@ function check(array) {
    for (let i = 0; i < array.length; i++) {
       let errorMessage = array[i].querySelector('.errorMessage');
       let field = array[i].querySelectorAll('input');
+
       if (field.length === 0) {
          field = array[i].querySelectorAll('select')
-      }
+         if (field[0].value == 'Профессия') {
+            if (!errorMessage) { pasteError(array[i]); }
+            if (errorMessage) { errorMessage.remove() }
+         }
+         else {
+            if (errorMessage) {
+               errorMessage.remove()
+            }
+         }
 
+      }
       if (field.length === 1) {
 
          if (field[0].validity.valid) {
@@ -26,17 +37,16 @@ function check(array) {
             continue
          }
          else {
-
             if (!errorMessage) { pasteError(array[i]) }
 
          }
       }
       else {
 
-         if (!field[0].checked && !field[1].checked ) {
+         if (!field[0].checked && !field[1].checked) {
             if (!errorMessage) {
-            pasteError(array[i])
-         }
+               pasteError(array[i])
+            }
 
          }
          else {
@@ -51,46 +61,46 @@ function check(array) {
 }
 function checkValidity(input) {
    let validity = input.validity;
- 
+
    if (validity.patternMismatch) {
-     errors.push('Неверный формат заполнения');
+      errors.push('Неверный формат заполнения');
    }
- 
+
    if (validity.rangeOverflow) {
-     errors.push('Значение превосходит максимально допустимое');
+      errors.push('Значение превосходит максимально допустимое');
    }
- 
+
    if (validity.rangeUnderflow) {
-     errors.push('Значение меньше минимально допустимого');
+      errors.push('Значение меньше минимально допустимого');
    }
- 
+
    if (validity.stepMismatch) {
-     errors.push('Недопустимое значение в соответствии с шагом');
+      errors.push('Недопустимое значение в соответствии с шагом');
    }
- 
+
    if (validity.tooLong) {
-     errors.push('Значение слишком длинное');
+      errors.push('Значение слишком длинное');
    }
- 
+
    if (validity.tooShort) {
-     errors.push('Значение слишком короткое');
+      errors.push('Значение слишком короткое');
    }
- 
+
    if (validity.valueMissing) {
-     errors.push('Необходимо заполнить поле');
+      errors.push('Необходимо заполнить поле');
    }
- }
- 
- function checkAll() {
+}
+
+function checkAll() {
    let inputs = document.querySelectorAll("input");
- 
+
    for (let input of inputs) {
-     checkValidity(input);
+      checkValidity(input);
    }
- 
+
    let errorDiv = document.querySelector('.errorsInfo');
-   errorDiv.textContent =  errors.join('. \n');
- }
+   errorDiv.textContent = errors.join('. \n');
+}
 
 function validateErr() {
    errors = [];
@@ -102,15 +112,22 @@ form.addEventListener('submit', function validate() {
    let formFields = form.querySelectorAll('form>div');
    check(formFields);
    validateErr()
-})
 
-if (errors.length == 0) {
-     let formFields = form.querySelectorAll('form>div');
-   for (let i = 0;i<formFields.length; i++) {
-   let field = formFields[i].querySelector('input') || formFields[i].querySelector('select');
-      field.addEventListener('change', function (evt) {
-      console.log(evt.target.value);
-    });
-   form.reset()
+
+   if (errors.length === 0) {
+    for (let i = 0; i < formFields.length; i++) {
+     let field = formFields[i].querySelector('input') || formFields[i].querySelector('select');
+         if (field.value == 'on' && field.classList.contains('radio'))  {
+            let checked =  formFields[i].querySelector('[name="sex"]:checked');
+            console.log(checked.id);
+            continue
+         }
+         if (field.value == 'on' && field.hasAttribute('required'))  { 
+            console.log(field.name)
+         }
+        else  {console.log(field.value)}
+                  // form.reset()
+      }
    }
 }
+   )

@@ -45,11 +45,11 @@
             </div>
 
             <div class="div-container">
-                <input type="password" placeholder="Введите пароль" name="password" id="password-input" required
+                <input type="password" placeholder="Введите пароль" name="password" pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,20}$/" id="password-input" required
                     minlength="8" >
             </div>
             <div class="check-agreed">
-                <input type="checkbox" name="agree" id="agree-input" required> Я согласен с обработкой данных
+                <input type="checkbox"  name="agree" id="agree-input" required> Я согласен с обработкой данных
             </div>
             <button type="submit" class="button">Отправить</button>
         </form>
